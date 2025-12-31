@@ -1,0 +1,427 @@
+/* --- IMPORTS (Added Pacifico back) --- */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Pacifico&family=Playfair+Display:ital,wght@1,400&family=Quicksand:wght@300;400;600&display=swap');
+
+/* --- VARS & RESET --- */
+:root {
+    --primary: #FF8FAB;
+    --secondary: #FFC2D1;
+    --accent: #FB6F92;
+    --text: #4A4A4A; /* Slightly darker for better readability */
+    
+    /* Updated Background Vars */
+    --glass-bg: rgba(255, 255, 255, 0.9); 
+    --glass-border: rgba(255, 255, 255, 1);
+    
+    --shadow-soft: 0 10px 40px rgba(0, 0, 0, 0.05);
+    /* New Deep Shadow for Polaroids */
+    --shadow-deep: 0 20px 50px rgba(0, 0, 0, 0.2); 
+
+    /* Font Families */
+    --font-hand: 'Pacifico', cursive;      /* Hero & Headers */
+    --font-fancy: 'Playfair Display', serif; /* Signatures/Italic */
+    --font-body: 'Nunito', sans-serif;     /* Main Text (Cleaner) */
+    scroll-behavior: smooth;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: var(--font-body);
+    color: var(--text);
+    overflow-x: hidden;
+    background: #FFC2D1; /* Fallback */
+    text-align: center;
+}
+
+/* --- 2. BACKGROUND (Less Soft / More Contrast) --- */
+.soft-bg {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    z-index: -1;
+    /* Deeper gradient to make white elements pop */
+    background: linear-gradient(135deg, #ffc2d1 0%, #ffe5ec 50%, #ffd1da 100%);
+}
+
+/* --- PRELOADER --- */
+#preloader {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: #fff;
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.8s ease;
+}
+.heartbeat { font-size: 3rem; animation: pulse 1s infinite; }
+
+/* --- TYPOGRAPHY --- */
+/* 4. HERO FONT REVERTED TO PACIFICO */
+h1 { 
+    font-family: var(--font-hand); 
+    font-size: 3.5rem; 
+    line-height: 1.3; 
+    color: var(--accent); 
+    margin-bottom: 10px; 
+    font-weight: 400;
+}
+
+h2 { font-family: var(--font-hand); font-size: 2rem; color: var(--text); margin-bottom: 20px; font-weight: 400; }
+h3 { font-family: var(--font-hand); font-size: 1.5rem; color: var(--accent); margin-bottom: 5px; font-weight: 400; }
+p { font-size: 1.1rem; line-height: 1.7; color: #555; margin-bottom: 15px; }
+
+/* --- GLASS CARDS --- */
+.glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    padding: 40px 25px;
+    margin: 30px auto;
+    max-width: 600px;
+    width: 90%;
+    box-shadow: var(--shadow-soft);
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+/* --- HERO SECTION --- */
+#hero {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+.highlight { 
+    color: #fff; 
+    text-shadow: 3px 3px 0px var(--accent);
+    font-family: var(--font-hand);
+}
+.hero-btn {
+    display: inline-block;
+    margin-top: 30px;
+    padding: 15px 35px;
+    background: var(--accent);
+    color: white;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.1rem;
+    box-shadow: 0 5px 15px rgba(251, 111, 146, 0.3);
+    transition: transform 0.2s;
+}
+.hero-btn:active { transform: scale(0.95); }
+
+/* --- FUN SECTION --- */
+.fun-section { margin: 60px 0; }
+.tiny-text { font-size: 0.85rem; color: #777; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10px; display: block; }
+#vibe-btn {
+    background: white;
+    border: 2px solid var(--accent);
+    color: var(--accent);
+    padding: 12px 25px;
+    border-radius: 50px;
+    font-family: var(--font-body);
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+#vibe-btn:hover { background: var(--accent); color: white; }
+#vibe-display { margin-top: 20px; font-weight: bold; font-size: 1.2rem; min-height: 30px; }
+
+/* --- 1. POLAROIDS (More Pop & Shadow) --- */
+.polaroid-container {
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+}
+.polaroid {
+    background: #fff;
+    padding: 15px;
+    /* Deeper Shadow applied here */
+    box-shadow: var(--shadow-deep); 
+    width: 100%;
+    max-width: 380px;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+    /* Slight border for crispness against darker bg */
+    border: 1px solid #eee; 
+}
+
+/* Rotation logic */
+.polaroid-container:nth-child(even) .polaroid { transform: rotate(2deg); }
+.polaroid-container:nth-child(odd) .polaroid { transform: rotate(-2deg); }
+.polaroid:active { transform: scale(0.98); }
+.polaroid:hover { transform: scale(1.02) rotate(0deg); z-index: 10; }
+
+.carousel {
+    width: 100%;
+    aspect-ratio: 4/5;
+    background: #f0f0f0;
+    overflow: hidden;
+    margin-bottom: 15px;
+    position: relative;
+}
+.carousel img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: none;
+}
+.carousel img.active { display: block; animation: fade 0.5s; }
+
+.caption {
+    text-align: center;
+    padding: 10px 5px;
+}
+.caption p {
+    /* Changed from fancy/italic to clean/readable */
+    font-family: var(--font-body); 
+    font-size: 1.05rem;  /* Slightly larger */
+    line-height: 1.6;    /* More breathing room between lines */
+    color: #333;         /* Slightly darker for better contrast */
+    margin-top: 8px;
+}
+.caption h3 { font-family: var(--font-hand); margin-bottom: 5px; color: #333; }
+
+/* --- DARK GLASS --- */
+.dark-glass {
+    background: rgba(40, 40, 40, 0.9);
+    color: white;
+}
+.dark-glass h2 { color: #fff; }
+.dark-glass p { color: #ddd; }
+.dark-glass strong { color: var(--primary); }
+
+/* --- 3. VOW SECTION (Fixed Typography) --- */
+.promise-card {
+    background: #fff;
+    width: 90%;
+    max-width: 600px;
+    margin: 40px auto 100px auto;
+    padding: 20px;
+    box-shadow: var(--shadow-deep);
+    position: relative;
+    /* Ensure it pops against background */
+    border-radius: 5px; 
+}
+
+.inner-border {
+    border: 2px dashed var(--accent);
+    padding: 40px 20px;
+    text-align: center;
+}
+
+/* Updated Vow Font Styles */
+.inner-border h2 {
+    font-family: var(--font-hand); /* Matches Hero */
+    color: var(--accent);
+    font-size: 2.5rem;
+}
+
+.inner-border p {
+    font-family: var(--font-body); /* Clean, readable font */
+    font-size: 1.15rem;
+    color: #333;
+    font-weight: 600;
+    line-height: 2;
+}
+
+.quote-box {
+    font-family: var(--font-fancy);
+    font-size: 1.4rem;
+    font-style: italic;
+    color: #444;
+    margin: 30px 0;
+    font-weight: bold;
+}
+
+.signature {
+    font-family: var(--font-hand); 
+    font-size: 2rem;
+    color: var(--accent);
+    margin-top: 20px;
+    transform: rotate(-5deg);
+    display: inline-block;
+}
+
+.celebrate-btn {
+    width: 100%;
+    background: var(--text);
+    color: white;
+    border: none;
+    padding: 15px;
+    font-size: 1rem;
+    margin-top: 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+.celebrate-btn:hover { background: #000; }
+
+/* --- ANIMATIONS & UTILS --- */
+.hidden { opacity: 0; transform: translateY(30px); transition: all 1s ease; }
+.show { opacity: 1; transform: translateY(0); }
+@keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
+@keyframes fade { from {opacity: 0.5;} to {opacity: 1;} }
+#confetti-canvas { position: fixed; top: 0; left: 0; pointer-events: none; z-index: 1000; }
+/* --- MUSIC PLAYER --- */
+#music-container {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 1000;
+    display: flex;
+    gap: 10px;
+}
+
+#music-toggle, #next-song {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(5px);
+    border: 2px solid var(--accent);
+    color: var(--accent);
+    padding: 10px 15px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: bold;
+    font-family: var(--font-body);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+#music-toggle:hover, #next-song:hover {
+    background: var(--accent);
+    color: white;
+    transform: scale(1.05);
+}
+
+#next-song {
+    font-size: 1.2rem;
+    padding: 5px 12px;
+}
+
+/* --- RESILIENCE LIST STYLING --- */
+.resilience-list {
+    list-style: none; /* Removes default black dots */
+    padding: 0;
+    margin: 25px auto; /* Centers the block */
+    text-align: left; /* Keeps text readable */
+    display: inline-block; /* Allows centering the whole block */
+    max-width: 400px;
+}
+
+.resilience-list li {
+    position: relative;
+    padding-left: 30px; /* Space for the emoji bullet */
+    margin-bottom: 12px;
+    color: #eee; /* Light text for dark background */
+    font-size: 1.1rem;
+    line-height: 1.4;
+}
+
+/* Custom Bullet Point */
+.resilience-list li::before {
+    content: '❤️‍🩹'; /* Mending Heart Emoji */
+    position: absolute;
+    left: 0;
+    top: 2px;
+    font-size: 1rem;
+    filter: drop-shadow(0 0 5px rgba(255, 143, 171, 0.5));
+}
+
+/* --- VOW LIST STYLING --- */
+.vow-list {
+    list-style: none; /* Remove default bullets */
+    padding: 0;
+    margin: 20px auto; /* Centers the list block inside the card */
+    text-align: left; /* Keeps the text lines readable */
+    display: inline-block; /* Allows the block to be centered */
+    max-width: 500px;
+}
+
+.vow-list li {
+    padding-left: 35px; /* Space for the sparkle */
+    position: relative;
+    margin-bottom: 15px; /* Space between promises */
+    font-family: var(--font-body); /* Clean, readable font */
+    font-size: 1.15rem;
+    color: #444; /* Dark grey */
+    font-weight: 700; /* Bold/Conviction */
+    line-height: 1.6;
+}
+
+/* Custom Bullet Point: Sparkle */
+.vow-list li::before {
+    content: '✨'; /* The Bullet Symbol */
+    position: absolute;
+    left: 0;
+    top: 2px;
+    font-size: 1.2rem;
+    filter: drop-shadow(0 0 2px rgba(251, 111, 146, 0.4));
+}
+
+/* --- VOW GAME STYLES --- */
+.game-area {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px dashed #ddd;
+}
+
+.challenge-text {
+    font-size: 0.9rem;
+    color: #888;
+    margin-bottom: 15px;
+}
+
+#counter-display {
+    font-family: var(--font-body);
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--accent);
+    margin-bottom: 10px;
+    transition: transform 0.1s;
+}
+
+/* Animation for the counter when clicked */
+.pop-anim {
+    animation: pop 0.2s ease;
+}
+
+@keyframes pop {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.3); }
+    100% { transform: scale(1); }
+}
+
+/* THE HIDDEN REWARD */
+.reward-box {
+    display: none; /* Hidden by default */
+    margin-top: 20px;
+    background: #FFF0F5;
+    padding: 20px;
+    border-radius: 15px;
+    border: 2px solid var(--accent);
+    animation: slideUp 0.5s ease;
+}
+
+.reward-box h3 {
+    color: var(--accent);
+    font-weight: 800;
+}
+
+.highlight-reward {
+    color: #d63384;
+    font-weight: 800;
+    font-size: 1.2rem;
+    background: white;
+    padding: 2px 8px;
+    border-radius: 5px;
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
